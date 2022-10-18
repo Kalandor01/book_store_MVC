@@ -6,8 +6,8 @@ class BookModel {
         this.#booksList = [];
     }
 
-    getData(file, callback) {
-        fetch(file, {
+    getData(endPoint, callback) {
+        fetch(endPoint, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,8 +25,39 @@ class BookModel {
             });
     }
 
-    modData() {
-        console.log("moooddd");
+    setData(endPoint, callback) {
+        fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.#booksList),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
+    getBooks() {
+        return this.#booksList;
+    }
+
+    modBook(book) {
+        console.log("mod " + book.id);
+        console.log(book);
+    }
+
+    delBook(book) {
+        console.log("del " + book.id);
+        console.log(this.#booksList.splice(book.x, 1));
+    }
+
+    buyBook(book) {
+        console.log("buy " + book.id);
     }
 }
 

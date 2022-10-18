@@ -1,11 +1,13 @@
+
 class BookAdminView {
     #book
     #row
     #modButton
     #delButton
 
-    constructor(book, pElement) {
+    constructor(book, pElement, x) {
         this.#book = book;
+        this.#book.x = x;
         console.log(this.#book);
         pElement.append(`<tr>
         <td>${this.#book.id}</td>
@@ -20,14 +22,25 @@ class BookAdminView {
         this.#modButton = $(`#mod${this.#book.id}`);
         this.#delButton = $(`#del${this.#book.id}`);
 
+
         this.#modButton.on("click", () => {
             this.clickModButtonEvent();
+        })
+
+        this.#delButton.on("click", () => {
+            this.clickDelButtonEvent();
         })
     }
 
     clickModButtonEvent() {
         window.dispatchEvent(
-            new CustomEvent("mod", {detail:(this.#book.id)})
+            new CustomEvent("mod", {detail:(this.#book)})
+        );
+    }
+
+    clickDelButtonEvent() {
+        window.dispatchEvent(
+            new CustomEvent("del", {detail:(this.#book)})
         );
     }
 }

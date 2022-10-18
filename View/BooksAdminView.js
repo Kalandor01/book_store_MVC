@@ -1,4 +1,4 @@
-import BookView from "./BookAdminView.js";
+import BookAdminView from "./BookAdminView.js";
 
 class BooksAdminView {
     #table
@@ -7,6 +7,7 @@ class BooksAdminView {
 
     constructor(booksList, parentElemName) {
         let parentElem = $(parentElemName);
+        parentElem.empty();
         parentElem.append(`<table><thead><tr>
         <th>ID</th>
         <th>Title</th>
@@ -19,8 +20,8 @@ class BooksAdminView {
         this.#tbody = this.#table.children("tbody:last-child");
 
         this.#books = [];
-        booksList.forEach(book => {
-            this.#books.push(new BookView(book, this.#tbody));
+        booksList.forEach((book, x) => {
+            this.#books.push(new BookAdminView(book, this.#tbody, x));
         });
     }
 }
