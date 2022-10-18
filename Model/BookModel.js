@@ -1,12 +1,13 @@
-class KonyvModel {
-    #konyvekTomb = [];
+
+class BookModel {
+    #booksList;
 
     constructor() {
-        console.log("KonyvModel");
+        this.#booksList = [];
     }
 
-    adatBe(vegpont, myCallBack) {
-        fetch(vegpont, {
+    getData(file, callback) {
+        fetch(file, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -15,14 +16,18 @@ class KonyvModel {
             .then((response) => response.json())
             .then((data) => {
                 console.log('Success:', data);
-                this.#konyvekTomb = data.konyv;
-                console.log(this.#konyvekTomb);
-                myCallBack(this.#konyvekTomb);
+                this.#booksList = data.konyv;
+                // console.log(this.#booksList);
+                callback(this.#booksList);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     }
+
+    modData() {
+        console.log("moooddd");
+    }
 }
 
-export default KonyvModel;
+export default BookModel;
