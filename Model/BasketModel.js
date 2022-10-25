@@ -6,11 +6,11 @@ class BasketModel {
         this.#items = [];
     }
 
-    findItem(fitem) {
+    #findItem(fitem) {
         let itemIndex = -1;
         for (let x = 0; x < this.#items.length; x++)
         {
-            if (this.#items[x] == fitem) {
+            if (this.#items[x].id == fitem.id) {
                 itemIndex = x;
                 break;
             }
@@ -19,7 +19,7 @@ class BasketModel {
     }
 
     addItem(item) {
-        let itemIndex = this.findItem(item);
+        let itemIndex = this.#findItem(item);
         if (itemIndex == -1)
         {
             item.amount = 1;
@@ -32,7 +32,7 @@ class BasketModel {
     }
 
     decreaseItem(item) {
-        let itemIndex = this.findItem(item);
+        let itemIndex = this.#findItem(item);
         if (itemIndex != -1)
         {
             let fitem = this.#items[itemIndex];

@@ -18,7 +18,22 @@ class BookController {
         });
         $("#public").on("click", ()=>{
             this.#bookModel.getData(this.#file, this.getBooksUserData);
+            // this.getBooksUserData(this.#bookModel.getBooks());
         });
+
+
+        $(window).on("new", (evt) => {
+            let books = this.#bookModel.getBooks();
+            let view = new BooksAdminView(books, "main");
+            view.newBook();
+        })
+
+        $(window).on("finnew", (evt) => {
+            this.#bookModel.newBook(evt.detail);
+            //show books
+            let books = this.#bookModel.getBooks();
+            new BooksAdminView(books, "main");
+        })
 
         $(window).on("mod", (evt) => {
             let books = this.#bookModel.getBooks();

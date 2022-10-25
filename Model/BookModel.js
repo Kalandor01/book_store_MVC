@@ -42,11 +42,43 @@ class BookModel {
         });
     }
 
+    #findBook(bookId) {
+        let bookIndex = -1;
+        for (let x = 0; x < this.#booksList.length; x++)
+        {
+            if (this.#booksList[x].id == bookId) {
+                bookIndex = x;
+                break;
+            }
+        }
+        return bookIndex;
+    }
+
     getBooks() {
         return this.#booksList;
     }
 
+    newBook(book) {
+        let bookIndex = this.#findBook(book.id);
+        if (bookIndex == -1)
+        {
+            this.#booksList.push(book);
+
+            console.log("mod " + book.id);
+            console.log(book);
+        }
+        else
+        {
+            console.log("id already exists");
+        }
+    }
+
     modBook(book) {
+        let bookIndex = this.#findBook(book.id);
+        if (bookIndex != -1)
+        {
+            this.#booksList[bookIndex] = book;
+        }
         console.log("mod " + book.id);
         console.log(book);
     }

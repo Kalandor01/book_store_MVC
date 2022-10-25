@@ -4,6 +4,7 @@ class BooksAdminView {
     #table
     #tbody
     #books
+    #newButton
 
     constructor(booksList, parentElemName) {
         console.log("Reload books");
@@ -20,10 +21,23 @@ class BooksAdminView {
         this.#table = parentElem.children("table:last-child");
         this.#tbody = this.#table.children("tbody:last-child");
 
+        parentElem.append(`<br><button id="newBook">New</button>`);
+        this.#newButton = parentElem.children("#newBook");
+
         this.#books = [];
         booksList.forEach((book, x) => {
             this.#books.push(new BookAdminView(book, this.#tbody, x));
         });
+
+        this.#newButton.on("click", () => {
+            this.clickNewButtonEvent();
+        })
+    }
+
+    clickNewButtonEvent() {
+        window.dispatchEvent(
+            new CustomEvent("new")
+        );
     }
 
     #findBookView(book) {
@@ -45,6 +59,11 @@ class BooksAdminView {
             let bookElement = this.#books[bookIndex];
             bookElement.editMode();
         }
+    }
+
+    newBook() {
+        let newBook = new BookAdminView(this.#books[0], this.#tbody, 0)
+        newBook.newMode();
     }
 }
 
