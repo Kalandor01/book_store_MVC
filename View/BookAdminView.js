@@ -1,14 +1,15 @@
 
 class BookAdminView {
-    #book
-    #row
-    #modButton
-    #delButton
+    #book;
+    #row;
+    #modButton;
+    #delButton;
+    #finishModButton;
 
     constructor(book, pElement, x) {
         this.#book = book;
         this.#book.x = x;
-        console.log(this.#book);
+        // console.log(this.#book);
         pElement.append(`<tr>
         <td>${this.#book.id}</td>
         <td>${this.#book.title}</td>
@@ -38,10 +39,44 @@ class BookAdminView {
         );
     }
 
+    clickFinModButtonEvent() {
+        //prepare data
+        this.#book.title = $(`input[name="title"]`).val();
+        this.#book.author = $(`input[name="author"]`).val();
+        this.#book.price = $(`input[name="price"]`).val();
+
+        window.dispatchEvent(
+            new CustomEvent("finmod", {detail:(this.#book)})
+        );
+    }
+
     clickDelButtonEvent() {
         window.dispatchEvent(
             new CustomEvent("del", {detail:(this.#book)})
         );
+    }
+
+    getBook()
+    {
+        return this.#book;
+    }
+
+    editMode() {
+        this.#row.empty();
+        this.#row.append(`
+        <td>${this.#book.id}</td>
+        <td><input type="text" name="title" value="${this.#book.title}"></td>
+        <td><input type="text" name="author" value="${this.#book.author}"></td>
+        <td><input type="number" name="price" value="${this.#book.price}"></td>
+        <td><button id="finMod${this.#book.id}">Finish edit</button></td>
+        <td><button id="del${this.#book.id}">Delete</button></td>
+        `);
+
+        this.#finishModButton = $(`#finMod${this.#book.id}`);
+
+        this.#finishModButton.on("click", () => {
+            this.clickFinModButtonEvent();
+        })
     }
 }
 

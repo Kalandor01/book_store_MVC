@@ -1,0 +1,2 @@
+buy button -> custom event(this.#elem) <- BookControler -> BasketModel -> put into array
+basket button -> show basket items(div): BasketView <- BasketController

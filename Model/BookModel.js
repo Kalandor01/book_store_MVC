@@ -59,6 +59,14 @@ class BookModel {
     buyBook(book) {
         console.log("buy " + book.id);
     }
+
+    decreaseBook(book) {
+        console.log("decrease " + book.id);
+    }
+
+    unbuyBook(book) {
+        console.log("unbuy " + book.id);
+    }
 }
 
 export default BookModel;

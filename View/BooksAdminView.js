@@ -6,6 +6,7 @@ class BooksAdminView {
     #books
 
     constructor(booksList, parentElemName) {
+        console.log("Reload books");
         let parentElem = $(parentElemName);
         parentElem.empty();
         parentElem.append(`<table><thead><tr>
@@ -23,6 +24,27 @@ class BooksAdminView {
         booksList.forEach((book, x) => {
             this.#books.push(new BookAdminView(book, this.#tbody, x));
         });
+    }
+
+    #findBookView(book) {
+        let bookIndex = -1;
+        for (let x = 0; x < this.#books.length; x++)
+        {
+            if (this.#books[x].getBook() == book) {
+                bookIndex = x;
+                break;
+            }
+        }
+        return bookIndex;
+    }
+
+    editBook(book) {
+        let bookIndex = this.#findBookView(book);
+        if (bookIndex != -1)
+        {
+            let bookElement = this.#books[bookIndex];
+            bookElement.editMode();
+        }
     }
 }
 

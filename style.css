@@ -5,18 +5,13 @@ main {
     margin: auto;
 }
 
-able {
-    width: 100%;
-    border-collapse: collapse;
-}
-
 td, th {
     border: 1px solid black;
     padding: 5px;
     text-align: center;
 }
 
-.book {
+.book, .item {
     border: 1px solid black;
     padding: 5px;
 }
