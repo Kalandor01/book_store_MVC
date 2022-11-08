@@ -48,6 +48,13 @@ class BookController {
             new BooksAdminView(books, "main");
         })
 
+        $(window).on("cancel", (evt) => {
+            this.#bookModel.cancel();
+            //show books
+            let books = this.#bookModel.getBooks();
+            new BooksAdminView(books, "main");
+        })
+
         $(window).on("del", (evt) => {
             this.#bookModel.delBook(evt.detail);
             //show books
@@ -58,8 +65,9 @@ class BookController {
         $(window).on("buy", (evt) => {
             this.#bookModel.buyBook(evt.detail);
             this.#basket.addItem(evt.detail);
-            //show books
+            //update basket + show books
             let books = this.#bookModel.getBooks();
+            this.#basket.updateDisplayItems(books);
             new BooksUserView(books, "main");
         })
 
@@ -67,6 +75,8 @@ class BookController {
             this.#bookModel.decreaseBook(evt.detail);
             this.#basket.decreaseItem(evt.detail);
             //show basket
+            let books = this.#bookModel.getBooks();
+            this.#basket.updateDisplayItems(books);
             this.#basket.showBasket();
         })
 
@@ -74,6 +84,8 @@ class BookController {
             this.#bookModel.unbuyBook(evt.detail);
             this.#basket.removeItem(evt.detail);
             //show basket
+            let books = this.#bookModel.getBooks();
+            this.#basket.updateDisplayItems(books);
             this.#basket.showBasket();
         })
     }

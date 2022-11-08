@@ -13,21 +13,24 @@ class BasketController {
     }
 
     showBasket() {
-        let items = this.#model.getItems();
+        let items = this.#model.getDisplayItems();
         new BasketView(items, "main");
     }
 
     addItem(item) {
-        this.#model.addItem(item);
+        this.#model.addItem(item.id);
     }
 
     decreaseItem(item) {
-        this.#model.decreaseItem(item);
+        this.#model.decreaseItem(item.id);
     }
 
     removeItem(item) {
-        console.log(item);
-        this.#model.removeItem(item);
+        this.#model.removeItem(item.id);
+    }
+
+    updateDisplayItems(books) {
+        this.#model.updateDisplayItems(books);
     }
 }
 

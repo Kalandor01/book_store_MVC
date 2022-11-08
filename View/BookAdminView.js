@@ -6,6 +6,7 @@ class BookAdminView {
     #delButton;
     #finishModButton;
     #finishNewButton;
+    #cancelButton;
 
     constructor(book, pElement, x) {
         this.#book = book;
@@ -59,7 +60,13 @@ class BookAdminView {
         this.#book.price = $(`input[name="price"]`).val();
 
         window.dispatchEvent(
-            new CustomEvent("finmod", {detail:(this.#book)})
+            new CustomEvent("finnew", {detail:(this.#book)})
+        );
+    }
+
+    clickCancelButtonEvent() {
+        window.dispatchEvent(
+            new CustomEvent("cancel", {})
         );
     }
 
@@ -82,13 +89,18 @@ class BookAdminView {
         <td><input type="text" name="author" value="${this.#book.author}"></td>
         <td><input type="number" name="price" value="${this.#book.price}"></td>
         <td><button id="finMod${this.#book.id}">Finish edit</button></td>
-        <td><button id="del${this.#book.id}">Delete</button></td>
+        <td><button id="cancel">Cancel</button></td>
         `);
 
         this.#finishModButton = $(`#finMod${this.#book.id}`);
+        this.#cancelButton = $(`#cancel`);
 
         this.#finishModButton.on("click", () => {
             this.clickFinModButtonEvent();
+        })
+
+        this.#cancelButton.on("click", () => {
+            this.clickCancelButtonEvent();
         })
     }
 
@@ -104,9 +116,14 @@ class BookAdminView {
         `);
 
         this.#finishNewButton = $(`#new`);
+        this.#cancelButton = $(`#cancel`);
 
         this.#finishNewButton.on("click", () => {
             this.clickFinNewButtonEvent();
+        })
+
+        this.#cancelButton.on("click", () => {
+            this.clickCancelButtonEvent();
         })
     }
 }

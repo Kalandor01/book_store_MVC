@@ -1,16 +1,17 @@
 
 class BasketModel {
     #items;
+    #displayItems;
 
     constructor() {
         this.#items = [];
     }
 
-    #findItem(fitem) {
+    #findItem(fid) {
         let itemIndex = -1;
         for (let x = 0; x < this.#items.length; x++)
         {
-            if (this.#items[x].id == fitem.id) {
+            if (this.#items[x].id == fid) {
                 itemIndex = x;
                 break;
             }
@@ -18,12 +19,11 @@ class BasketModel {
         return itemIndex;
     }
 
-    addItem(item) {
-        let itemIndex = this.#findItem(item);
+    addItem(id) {
+        let itemIndex = this.#findItem(id);
         if (itemIndex == -1)
         {
-            item.amount = 1;
-            this.#items.push(item);
+            this.#items.push({"id":id, "amount":1});
         }
         else
         {
@@ -31,8 +31,8 @@ class BasketModel {
         }
     }
 
-    decreaseItem(item) {
-        let itemIndex = this.#findItem(item);
+    decreaseItem(id) {
+        let itemIndex = this.#findItem(id);
         if (itemIndex != -1)
         {
             let fitem = this.#items[itemIndex];
@@ -47,8 +47,8 @@ class BasketModel {
         }
     }
 
-    removeItem(item) {
-        let itemIndex = this.findItem(item);
+    removeItem(id) {
+        let itemIndex = this.#findItem(id);
         if (itemIndex != -1)
         {
             this.#items.splice(itemIndex, 1);
@@ -57,6 +57,29 @@ class BasketModel {
 
     getItems() {
         return this.#items;
+    }
+
+    getDisplayItems() {
+        return this.#displayItems;
+    }
+
+    updateDisplayItems(bookList) {
+        this.#displayItems = [];
+        this.#items.forEach(item => {
+            let x = 0;
+            while(x < bookList.length && item.id != bookList[x].id) {
+                x++;
+            }
+            if(x < bookList.length) {
+                this.#displayItems.push({
+                    "id":item.id,
+                    "title":bookList[x].title,
+                    "author":bookList[x].author,
+                    "price":bookList[x].price,
+                    "amount":item.amount
+                })
+            }
+        });
     }
 }
 

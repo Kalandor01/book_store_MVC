@@ -64,7 +64,7 @@ class BookModel {
         {
             this.#booksList.push(book);
 
-            console.log("mod " + book.id);
+            console.log("new " + book.id);
             console.log(book);
         }
         else
@@ -81,6 +81,10 @@ class BookModel {
         }
         console.log("mod " + book.id);
         console.log(book);
+    }
+
+    cancel() {
+        console.log("cancel");
     }
 
     delBook(book) {
