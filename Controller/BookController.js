@@ -9,7 +9,7 @@ class BookController {
     #basket
 
     constructor() {
-        this.#file = "../data.json";
+        this.#file = "../book_store_MVC/data.json";
         this.#bookModel = new BookModel();
         this.#basket = new BasketController();
 
